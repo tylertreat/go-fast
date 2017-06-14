@@ -1,0 +1,11 @@
+set term pngcairo
+set output 'defer.png'
+
+set grid
+set title 'Mutex Lock/Unlock Defer and No Defer'
+set yrange [0:125]
+set ylabel 'ns/op'
+set xlabel 'Go Version'
+set style data linespoints
+plot 'defer.csv' using 1:2:xtic(1) title 'defer' lw 2 pt 2 linecolor rgb '#f9950a', \
+     ''          using 1:3:xtic(1) title 'no defer' lw 2 pt 7 linecolor rgb '#7CB070'
