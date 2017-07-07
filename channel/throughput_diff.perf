@@ -1,0 +1,11 @@
+title=Improvement (Ring Buffer vs. Buffered Channel)
+colorset=#7CB070,#FFFC66,#55595e,#5584d1
+=color_per_datum
+=norotate
+ylabel=% improvement
+yformat=%g%%
+
+no-contention    32.199
+read-contention  72.568
+write-contention 75.506
+full-contention  27.457
