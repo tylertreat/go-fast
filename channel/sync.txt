@@ -1,0 +1,8 @@
+BenchmarkSimpleSet-8                                   	100000000	        17.7 ns/op 
+BenchmarkSimpleUnbufferedChannelSet-8                  	10000000	       232.3 ns/op 
+BenchmarkSimpleBufferedChannelSet-8                    	20000000	        91.3 ns/op 
+BenchmarkSimpleSetWriteContention-8                    	20000000	       102.7 ns/op 
+BenchmarkSimpleUnbufferedChannelSetWriteContention-8   	 3000000	       548.3 ns/op 
+BenchmarkSimpleBufferedChannelSetWriteContention-8     	 5000000	       236 ns/op   
+PASS
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/channel	13.446s

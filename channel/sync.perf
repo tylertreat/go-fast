@@ -1,0 +1,10 @@
+title=Synchronization (Mutex vs. Channel)
+colorset=#7CB070,#FFFC66,#55595e
+=table
+=norotate
+ylabel=ns/op
+=cluster;sync.Mutex;buffered channel;unbuffered channel
+
+#               sync.Mutex  buffered channel  unbuffered channel
+contention           102.7               236               548.3
+no-contention         17.7              91.3               232.3
