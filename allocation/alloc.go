@@ -37,11 +37,13 @@ func (p *Pool) Put(b []byte) {
 	}
 }
 
+// Arena allacator.
 type Arena struct {
 	base uintptr
 	data []byte
 }
 
+// NewArena creates a new arena allocator.
 func NewArena(max int) *Arena {
 	data := make([]byte, max, max)
 	return &Arena{
@@ -50,6 +52,7 @@ func NewArena(max int) *Arena {
 	}
 }
 
+// Alloc allocates a new byte slice from the arena.
 func (arena *Arena) Alloc(size int) []byte {
 	p := atomic.AddUintptr(&arena.base, uintptr(size))
 	return (*[1 << 31]byte)(unsafe.Pointer(p))[:size]
