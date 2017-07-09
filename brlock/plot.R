@@ -8,20 +8,25 @@ args <- commandArgs(trailingOnly = TRUE)
 args <- if (length(args) == 0) Sys.getenv("ARGS") else args
 args <- if (args[1] == "") "plot.dat" else args
 d <- data.frame(read.table(
-			   text=grep('^mx[123]', readLines(file(args[1])), value=T),
-			   col.names=c("lock", "cores", "readers", "iterations", "wprob", "wwork", "rwork", "refresh", "time", "X"),
+			   text=grep('^mx[1234]', readLines(file(args[1])), value=T),
+			   col.names=c("mutex", "cores", "readers", "iterations", "wprob", "wwork", "rwork", "refresh", "time", "X"),
 			   colClasses=c(rep(NA, 9), rep("NULL"))
 			   ))
 d$ops = 1/(d$time/d$iterations/d$readers)
-d$lock = sapply(d$lock, function(x) { if (x == "mx1") "sync.RWMutex" else "DRWMutex (CPUID)" })
+d$mutex = sapply(d$mutex, function(x) {
+                    if (x == "mx1") "sync.RWMutex"
+                    else if (x == "mx2") "DRWMutex"
+                    else if (x == "mx3") "sync.RWMutex (padded)"
+                    else if (x == "mx4") "DRWMutex (padded)"
+})
 da <- aggregate(d$ops, by = list(
-				 lock=d$lock,
+				 mutex=d$mutex,
 				 cores=d$cores,
 				 refresh=d$refresh,
 				 rwork=d$rwork,
 				 wprob=d$wprob,
 				 readers=d$readers), FUN = summary)
-p <- ggplot(data=da, aes(x = cores, y = x[,c("Mean")], ymin = x[,c("1st Qu.")], ymax = x[,c("3rd Qu.")], color = lock))
+p <- ggplot(data=da, aes(x = cores, y = x[,c("Mean")], ymin = x[,c("1st Qu.")], ymax = x[,c("3rd Qu.")], color = mutex))
 p <- p + geom_line()
 p <- p + geom_errorbar()
 #p <- p + facet_wrap(~ readers)
