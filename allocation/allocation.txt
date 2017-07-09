@@ -1,0 +1,12 @@
+BenchmarkSlab-8                  	20000000	        82.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSlabParallel-8          	10000000	       174 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMake-8                  	 3000000	       553 ns/op	    4096 B/op	       1 allocs/op
+BenchmarkMakeParallel-8          	 3000000	       507 ns/op	    4096 B/op	       1 allocs/op
+BenchmarkSyncPool-8              	20000000	        73.1 ns/op	      32 B/op	       1 allocs/op
+BenchmarkSyncPoolParallel-8      	100000000	        22.9 ns/op	      32 B/op	       1 allocs/op
+BenchmarkChannelPool-8           	20000000	        74.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkChannelPoolParallel-8   	 5000000	       292 ns/op	       0 B/op	       0 allocs/op
+BenchmarkArena-8                 	  200000	        97.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkArenaParallel-8         	  200000	        29.4 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/allocation	18.273s
