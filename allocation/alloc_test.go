@@ -115,30 +115,29 @@ func BenchmarkChannelPoolParallel(b *testing.B) {
 }
 
 func BenchmarkArena(b *testing.B) {
-	var arena Arena
-	var buf [alloc]byte
+	arena := NewArena(1 << 30)
+	var buf []byte
+	b.N = 200000
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		buf = arena.Get()
-		arena.Put(buf)
+		buf = arena.Alloc(alloc)
 	}
 	buf[0] = 0
 }
 
 func BenchmarkArenaParallel(b *testing.B) {
-	var arena Arena
-	var buf [alloc]byte
-	var mu sync.Mutex
+	arena := NewArena(1 << 30)
+	b.N = 200000
 	b.ReportAllocs()
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
+		var buf []byte
 		for pb.Next() {
-			mu.Lock()
-			buf = arena.Get()
-			arena.Put(buf)
-			mu.Unlock()
+			buf = arena.Alloc(alloc)
 		}
-		buf[0] = 0
+		if buf != nil {
+			buf[0] = 0
+		}
 	})
 }

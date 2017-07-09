@@ -1,5 +1,10 @@
 package allocation
 
+import (
+	"sync/atomic"
+	"unsafe"
+)
+
 const alloc = 1 << 12
 
 // Pool holds byte arrays.
@@ -32,18 +37,20 @@ func (p *Pool) Put(b []byte) {
 	}
 }
 
-type Arena [][alloc]byte
-
-func (a *Arena) Get() [alloc]byte {
-	if len(*a) == 0 {
-		*a = make([][alloc]byte, 1024)
-	}
-
-	b := &(*a)[len(*a)-1]
-	*a = (*a)[:len(*a)-1]
-	return *b
+type Arena struct {
+	base uintptr
+	data []byte
 }
 
-func (a *Arena) Put(b [alloc]byte) {
-	*a = append(*a, b)
+func NewArena(max int) *Arena {
+	data := make([]byte, max, max)
+	return &Arena{
+		base: uintptr(unsafe.Pointer(&data[0])),
+		data: data,
+	}
+}
+
+func (arena *Arena) Alloc(size int) []byte {
+	p := atomic.AddUintptr(&arena.base, uintptr(size))
+	return (*[1 << 31]byte)(unsafe.Pointer(p))[:size]
 }
