@@ -100,10 +100,10 @@ func BenchmarkChannelPool(b *testing.B) {
 
 func BenchmarkChannelPoolParallel(b *testing.B) {
 	p := NewPool(1024)
-	var buf []byte
 	b.ReportAllocs()
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
+		var buf []byte
 		for pb.Next() {
 			buf = p.Get()
 			p.Put(buf)

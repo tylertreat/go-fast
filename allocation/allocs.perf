@@ -1,0 +1,11 @@
+title=Fixed-Size Memory Allocation (4KB)
+=norotate
+ylabel=B/op (amortized)
+logscaley=2
+max=8192
+
+slab allocation  0
+make             4096
+sync.Pool        32
+channel pool     0
+arena allocation 0
