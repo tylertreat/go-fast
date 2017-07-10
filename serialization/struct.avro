@@ -1,0 +1,13 @@
+{
+        "type": "record",
+        "name": "StructAvro",
+        "fields": [
+                {"name": "Field1", "type": "string"},
+                {"name": "Field2", "type": "long"},
+                {"name": "Field3", "type": {"type": "array", "items": "string"}},
+                {"name": "Field4", "type": "long"},
+                {"name": "Field5", "type": "string"},
+                {"name": "Field6", "type": "string"},
+                {"name": "Field7", "type": "bytes"}
+        ]
+}
