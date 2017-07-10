@@ -39,12 +39,12 @@ func (p *Pool) Put(b []byte) {
 	}
 }
 
-// Pool holds byte arrays.
+// RBPool holds byte arrays.
 type RBPool struct {
 	pool *queue.RingBuffer
 }
 
-// NewPool creates a new pool of byte array.
+// NewRBPool creates a new pool of byte array.
 func NewRBPool(max uint64) *RBPool {
 	return &RBPool{
 		pool: queue.NewRingBuffer(max),
