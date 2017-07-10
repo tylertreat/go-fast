@@ -7,10 +7,24 @@ import (
 
 	"git.apache.org/thrift.git/lib/go/thrift"
 	capn "github.com/glycerine/go-capnproto"
+
+	"github.com/tylertreat/go-fast/serialization/easyjson"
 )
 
 func makeStruct() *Struct {
 	return &Struct{
+		Field1: "foo",
+		Field2: 42,
+		Field3: make([]string, 10),
+		Field4: 100,
+		Field5: "bar",
+		Field6: "baz",
+		Field7: make([]byte, 10),
+	}
+}
+
+func makeEasyJSONStruct() *easyjson.Struct {
+	return &easyjson.Struct{
 		Field1: "foo",
 		Field2: 42,
 		Field3: make([]string, 10),
@@ -111,6 +125,34 @@ func BenchmarkFFJSONMarshal(b *testing.B) {
 
 func BenchmarkFFJSONUnmarshal(b *testing.B) {
 	s := makeStruct()
+	buf, err := s.MarshalJSON()
+	if err != nil {
+		b.Fatal(err)
+	}
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		err := s.UnmarshalJSON(buf)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func BenchmarkEasyJSONMarshal(b *testing.B) {
+	s := makeEasyJSONStruct()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_, err := s.MarshalJSON()
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func BenchmarkEasyJSONUnmarshal(b *testing.B) {
+	s := makeEasyJSONStruct()
 	buf, err := s.MarshalJSON()
 	if err != nil {
 		b.Fatal(err)
