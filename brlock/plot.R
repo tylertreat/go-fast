@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 args <- if (length(args) == 0) Sys.getenv("ARGS") else args
 args <- if (args[1] == "") "plot.dat" else args
 d <- data.frame(read.table(
-			   text=grep('^mx[1234]', readLines(file(args[1])), value=T),
+			   text=grep('^mx[123]', readLines(file(args[1])), value=T),
 			   col.names=c("mutex", "cores", "readers", "iterations", "wprob", "wwork", "rwork", "refresh", "time", "X"),
 			   colClasses=c(rep(NA, 9), rep("NULL"))
 			   ))
@@ -16,8 +16,7 @@ d$ops = 1/(d$time/d$iterations/d$readers)
 d$mutex = sapply(d$mutex, function(x) {
                     if (x == "mx1") "sync.RWMutex"
                     else if (x == "mx2") "DRWMutex"
-                    else if (x == "mx3") "sync.RWMutex (padded)"
-                    else if (x == "mx4") "DRWMutex (padded)"
+                    else if (x == "mx3") "DRWMutex (padded)"
 })
 da <- aggregate(d$ops, by = list(
 				 mutex=d$mutex,
@@ -32,6 +31,7 @@ p <- p + geom_errorbar()
 #p <- p + facet_wrap(~ readers)
 #p <- p + facet_grid(refresh ~ rwork, labeller = function(var, val) {paste(var, " = ", val)})
 #p <- p + geom_smooth()
+p <- p + ggtitle("Multi-Core Scalability of RWMutex on a Read-Heavy Workload")
 p <- p + xlab("CPU cores")
 p <- p + ylab("Mean ops per second per reader")
 
