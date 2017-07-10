@@ -3,6 +3,8 @@ package allocation
 import (
 	"sync/atomic"
 	"unsafe"
+
+	"github.com/Workiva/go-datastructures/queue"
 )
 
 const alloc = 1 << 12
@@ -35,6 +37,35 @@ func (p *Pool) Put(b []byte) {
 	case p.pool <- b:
 	default:
 	}
+}
+
+// Pool holds byte arrays.
+type RBPool struct {
+	pool *queue.RingBuffer
+}
+
+// NewPool creates a new pool of byte array.
+func NewRBPool(max uint64) *RBPool {
+	return &RBPool{
+		pool: queue.NewRingBuffer(max),
+	}
+}
+
+// Get a byte array from the pool.
+func (p *RBPool) Get() []byte {
+	if p.pool.Len() == 0 {
+		return make([]byte, alloc)
+	}
+	b, _ := p.pool.Poll(1)
+	if b == nil {
+		b = make([]byte, alloc)
+	}
+	return b.([]byte)
+}
+
+// Put returns a byte array to the pool.
+func (p *RBPool) Put(b []byte) {
+	p.pool.Offer(b)
 }
 
 // Arena allacator.

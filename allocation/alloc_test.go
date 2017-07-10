@@ -114,6 +114,34 @@ func BenchmarkChannelPoolParallel(b *testing.B) {
 	})
 }
 
+func BenchmarkRBPool(b *testing.B) {
+	p := NewRBPool(1024)
+	var buf []byte
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		buf = p.Get()
+		p.Put(buf)
+	}
+	buf[0] = 0
+}
+
+func BenchmarkRBPoolParallel(b *testing.B) {
+	p := NewRBPool(1024)
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		var buf []byte
+		for pb.Next() {
+			buf = p.Get()
+			p.Put(buf)
+		}
+		if buf != nil {
+			buf[0] = 0
+		}
+	})
+}
+
 func BenchmarkArena(b *testing.B) {
 	arena := NewArena(1 << 30)
 	var buf []byte
