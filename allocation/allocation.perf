@@ -1,10 +1,10 @@
 title=Fixed-Size Memory Allocation (4KB)
-colorset=#7CB070,#FFFC66,#55595e,#5584d1,#ed5757
+colorset=#7CB070,#FFFC66,#55595e,#5584d1,#ed5757,#f4ad42
 =table
 =norotate
 ylabel=ns/op
-=cluster;slab allocation;make;sync.Pool;channel pool;arena allocation
+=cluster;slab allocation;make;sync.Pool;channel pool;ring buffer pool;arena allocation
 
-#               slab allocation  make  sync.Pool  channel pool  arena allocation
-single-threaded            82.8   553       73.1          74.5              97.6
-multi-threaded              174   507       22.9           292              29.4
+#               slab allocation  make  sync.Pool  channel pool  ring buffer pool  arena allocation
+single-threaded            83.5   547       75.1          71.6               111              97.6
+multi-threaded              179   520       24.0           287               158              29.4
