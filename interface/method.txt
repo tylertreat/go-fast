@@ -1,0 +1,4 @@
+BenchmarkMethodCall-8        	2000000000	         0.29 ns/op
+BenchmarkMethodCallIface-8   	1000000000	         2.30 ns/op
+PASS
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/interface	3.138s
