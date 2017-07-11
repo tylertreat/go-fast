@@ -85,8 +85,8 @@ func shuffleComparators(a []merge.Comparator) {
 func BenchmarkSortStruct(b *testing.B) {
 	s := make([]SortableByNumber, b.N)
 	for i := 0; i < b.N; i++ {
-		s[i] = make(SortableByNumber, 1000000)
-		for j := 0; j < 1000000; j++ {
+		s[i] = make(SortableByNumber, 10000000)
+		for j := 0; j < 10000000; j++ {
 			s[i][j] = Sortable{j}
 		}
 		shuffle(s[i])
@@ -101,8 +101,8 @@ func BenchmarkSortStruct(b *testing.B) {
 func BenchmarkSortIface(b *testing.B) {
 	s := make([]SortableIfaceByNumber, b.N)
 	for i := 0; i < b.N; i++ {
-		s[i] = make(SortableIfaceByNumber, 1000000)
-		for j := 0; j < 1000000; j++ {
+		s[i] = make(SortableIfaceByNumber, 10000000)
+		for j := 0; j < 10000000; j++ {
 			s[i][j] = Sortable{j}
 		}
 		shuffleIfaces(s[i])
@@ -114,9 +114,9 @@ func BenchmarkSortIface(b *testing.B) {
 	}
 }
 
-func BenchmarkSortSymMerge(b *testing.B) {
-	s := make([]merge.Comparator, 1000000)
-	for i := 0; i < 1000000; i++ {
+func BenchmarkSortParallelSymMerge(b *testing.B) {
+	s := make([]merge.Comparator, 10000000)
+	for i := 0; i < 10000000; i++ {
 		s[i] = Sortable{i}
 	}
 	shuffleComparators(s)
@@ -124,21 +124,5 @@ func BenchmarkSortSymMerge(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_ = merge.MultithreadedSortComparators(s)
-	}
-}
-
-func BenchmarkSortStructStable(b *testing.B) {
-	s := make([]SortableByNumber, b.N)
-	for i := 0; i < b.N; i++ {
-		s[i] = make(SortableByNumber, 1000000)
-		for j := 0; j < 1000000; j++ {
-			s[i][j] = Sortable{j}
-		}
-		shuffle(s[i])
-	}
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		sort.Stable(s[i])
 	}
 }
