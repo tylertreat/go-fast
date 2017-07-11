@@ -4,9 +4,9 @@ logscaley=2
 max=8192
 rotateby=-45
 
-slab allocation  0
 make             4096
+slab-alloc       0
+arena-alloc      0
 sync.Pool        32
-channel pool     0
-ring buffer pool 32
-arena allocation 0
+chan-pool        0
+ring-pool        32
