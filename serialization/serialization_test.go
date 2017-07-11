@@ -96,6 +96,18 @@ func BenchmarkJSONReflectionMarshal(b *testing.B) {
 	}
 }
 
+func BenchmarkJSONReflectionMarshalIface(b *testing.B) {
+	var s Iface = makeStruct()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_, err := json.Marshal(s)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
 func BenchmarkJSONReflectionUnmarshal(b *testing.B) {
 	s := makeStruct()
 	buf, err := json.Marshal(s)
