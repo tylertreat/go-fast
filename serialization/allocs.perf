@@ -1,0 +1,17 @@
+title=Serialization Heap Allocation
+colorset=#7CB070,#FFFC66
+=table
+=norotate
+ylabel=B/op
+=cluster;marshal;unmarshal
+
+#         marshal  unmarshal
+json         2090       1184
+ffjson       1642        840
+easyjson      736         24
+msgpack       176          9
+
+protobuf       64        837
+thrift        128        184
+capnp           8        256
+avro            0        768
