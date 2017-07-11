@@ -1,9 +1,11 @@
 title=Sorting 100M Structs
-colorset=#7CB070
+colorset=#7CB070,#FFFC66
 =norotate
-max=110
+=cluster;Go 1.4.3;Go 1.8.3
 datascale=0.000000001
 ylabel=seconds
+=table
 
-struct 28073180606
-iface  99381425081
+#                    1.4.3           1.8.3
+struct               57277875978     28009906460
+iface                260437454011    99968545277

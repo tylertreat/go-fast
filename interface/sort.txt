@@ -1,5 +1,0 @@
-BenchmarkSortStruct-8             	       1	28073180606 ns/op
-BenchmarkSortIface-8              	       1	99381425081 ns/op
-BenchmarkSortParallelSymMerge-8   	       1	84553641337 ns/op
-PASS
-ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/interface	256.607s

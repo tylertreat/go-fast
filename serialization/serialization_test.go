@@ -11,6 +11,34 @@ import (
 	"github.com/tylertreat/go-fast/serialization/easyjson"
 )
 
+func makeStruct() *Struct {
+	return &Struct{
+		Field1: "foo",
+		Field2: 42,
+		Field3: make([]string, 10),
+		Field4: 100,
+		Field5: "bar",
+		Field6: "baz",
+		Field7: make([]byte, 10),
+	}
+}
+
+type Iface interface {
+	Foo()
+}
+
+type Struct struct {
+	Field1 string
+	Field2 int
+	Field3 []string
+	Field4 uint64
+	Field5 string
+	Field6 string
+	Field7 []byte
+}
+
+func (s *Struct) Foo() {}
+
 func makeEasyJSONStruct() *easyjson.Struct {
 	return &easyjson.Struct{
 		Field1: "foo",
@@ -73,7 +101,7 @@ func makeStructAvro() *StructAvro {
 }
 
 func BenchmarkJSONReflectionMarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -85,7 +113,7 @@ func BenchmarkJSONReflectionMarshal(b *testing.B) {
 }
 
 func BenchmarkJSONReflectionUnmarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	buf, err := json.Marshal(s)
 	if err != nil {
 		b.Fatal(err)
@@ -100,7 +128,7 @@ func BenchmarkJSONReflectionUnmarshal(b *testing.B) {
 }
 
 func BenchmarkFFJSONMarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -112,7 +140,7 @@ func BenchmarkFFJSONMarshal(b *testing.B) {
 }
 
 func BenchmarkFFJSONUnmarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	buf, err := s.MarshalJSON()
 	if err != nil {
 		b.Fatal(err)
@@ -156,7 +184,7 @@ func BenchmarkEasyJSONUnmarshal(b *testing.B) {
 }
 
 func BenchmarkMsgpackMarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	var data []byte
 	b.ResetTimer()
 
@@ -169,7 +197,7 @@ func BenchmarkMsgpackMarshal(b *testing.B) {
 }
 
 func BenchmarkMsgpackUnmarshal(b *testing.B) {
-	s := MakeStruct()
+	s := makeStruct()
 	var data []byte
 	buf, err := s.MarshalMsg(data)
 	if err != nil {

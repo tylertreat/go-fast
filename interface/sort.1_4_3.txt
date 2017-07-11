@@ -1,0 +1,4 @@
+PASS
+BenchmarkSortStruct	       1	57277875978 ns/op
+BenchmarkSortIface	       1	260437454011 ns/op
+ok  	github.com/tylertreat/go-fast/interface	359.168s
