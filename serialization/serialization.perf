@@ -1,0 +1,19 @@
+title=Serialization
+colorset=#7CB070,#FFFC66,#55595e,#5584d1,#ed5757,#f4ad42
+=table
+=norotate
+ylabel=ns/op
+=cluster;marshal;unmarshal
+
+#                              marshal  unmarshal
+=multi
+json                              5521       6060
+ffjson                            2446       3403
+easyjson                           998       1228
+msgpack                            250        493
+
+=multi
+protobuf                           200       1895
+thrift                            1234       1773
+capnp                             75.7        557
+avro                               982       1913
