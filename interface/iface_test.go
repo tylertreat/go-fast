@@ -8,10 +8,6 @@ import (
 	"runtime/pprof"
 	"sort"
 	"testing"
-
-	"github.com/Workiva/go-datastructures/sort"
-
-	"github.com/tylertreat/go-fast/serialization"
 )
 
 var cpuProfile = flag.String("prof", "", "Write CPU profile")
@@ -20,8 +16,35 @@ func init() {
 	flag.Parse()
 }
 
+func makeStruct() *Struct {
+	return &Struct{
+		Field1: "foo",
+		Field2: 42,
+		Field3: make([]string, 10),
+		Field4: 100,
+		Field5: "bar",
+		Field6: "baz",
+		Field7: make([]byte, 10),
+	}
+}
+
+type Iface interface {
+	Foo()
+}
+
+type Struct struct {
+	Field1 string
+	Field2 int
+	Field3 []string
+	Field4 uint64
+	Field5 string
+	Field6 string
+	Field7 []byte
+}
+
+func (s *Struct) Foo() {}
 func BenchmarkMethodCall(b *testing.B) {
-	s := serialization.MakeStruct()
+	s := makeStruct()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		s.Foo()
@@ -29,7 +52,7 @@ func BenchmarkMethodCall(b *testing.B) {
 }
 
 func BenchmarkMethodCallIface(b *testing.B) {
-	var s serialization.Iface = serialization.MakeStruct()
+	var s Iface = makeStruct()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		s.Foo()
@@ -46,17 +69,6 @@ type Sortable struct {
 
 func (s Sortable) Number() int {
 	return s.number
-}
-
-func (s Sortable) Compare(other merge.Comparator) int {
-	otherSortable := other.(Sortable)
-	if s.number == otherSortable.number {
-		return 0
-	}
-	if s.number > otherSortable.number {
-		return 1
-	}
-	return -1
 }
 
 type SortableIfaceByNumber []SortableIface
@@ -79,13 +91,6 @@ func shuffle(a SortableByNumber) {
 }
 
 func shuffleIfaces(a SortableIfaceByNumber) {
-	for i := range a {
-		j := rand.Intn(i + 1)
-		a[i], a[j] = a[j], a[i]
-	}
-}
-
-func shuffleComparators(a []merge.Comparator) {
 	for i := range a {
 		j := rand.Intn(i + 1)
 		a[i], a[j] = a[j], a[i]
@@ -127,22 +132,6 @@ func BenchmarkSortIface(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		sort.Sort(s[i])
-	}
-}
-
-func BenchmarkSortParallelSymMerge(b *testing.B) {
-	s := make([]merge.Comparator, 100000000)
-	for i := 0; i < 100000000; i++ {
-		s[i] = Sortable{i}
-	}
-	shuffleComparators(s)
-	if *cpuProfile != "" {
-		defer setupProfiling(b, "symmerge")()
-	}
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		_ = merge.MultithreadedSortComparators(s)
 	}
 }
 
