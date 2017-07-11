@@ -2,61 +2,59 @@ package convert
 
 import "testing"
 
-type myint int64
+type myStruct struct{}
 
-type Inccer interface {
-	inc()
+type myIface interface {
+	Foo()
 }
 
-func (i *myint) inc() {
-	*i = *i + 1
+func (*myStruct) Foo() {}
+
+func BenchmarkMethodConcrete(b *testing.B) {
+	m := new(myStruct)
+	invokeConcrete(m, b.N)
 }
 
-func BenchmarkIncrInt(b *testing.B) {
-	i := new(myint)
-	incrementInt(i, b.N)
+func BenchmarkMethodIface(b *testing.B) {
+	m := new(myStruct)
+	invokeIface(m, b.N)
 }
 
-func BenchmarkIncrIface(b *testing.B) {
-	i := new(myint)
-	incrementIface(i, b.N)
+func BenchmarkMethodTypeSwitch(b *testing.B) {
+	m := new(myStruct)
+	invokeTypeSwitch(m, b.N)
 }
 
-func BenchmarkIncrTypeSwitch(b *testing.B) {
-	i := new(myint)
-	incrementTypeSwitch(i, b.N)
+func BenchmarkMethodTypeAssert(b *testing.B) {
+	m := new(myStruct)
+	invokeTypeAssert(m, b.N)
 }
 
-func BenchmarkIncrTypeAsser(b *testing.B) {
-	i := new(myint)
-	incrementTypeAssert(i, b.N)
-}
-
-func incrementInt(i *myint, n int) {
+func invokeConcrete(m *myStruct, n int) {
 	for k := 0; k < n; k++ {
-		i.inc()
+		m.Foo()
 	}
 }
 
-func incrementIface(any Inccer, n int) {
+func invokeIface(m myIface, n int) {
 	for k := 0; k < n; k++ {
-		any.inc()
+		m.Foo()
 	}
 }
 
-func incrementTypeSwitch(any Inccer, n int) {
+func invokeTypeSwitch(m myIface, n int) {
 	for k := 0; k < n; k++ {
-		switch v := any.(type) {
-		case *myint:
-			v.inc()
+		switch v := m.(type) {
+		case *myStruct:
+			v.Foo()
 		}
 	}
 }
 
-func incrementTypeAssert(any Inccer, n int) {
+func invokeTypeAssert(m myIface, n int) {
 	for k := 0; k < n; k++ {
-		if newint, ok := any.(*myint); ok {
-			newint.inc()
+		if n, ok := m.(*myStruct); ok {
+			n.Foo()
 		}
 	}
 }

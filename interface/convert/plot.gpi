@@ -3,7 +3,7 @@ set output 'convert.png'
 
 set grid
 set title 'Method Invocation Overhead'
-set yrange [0:20]
+set yrange [0:25]
 set ylabel 'ns/op'
 set xlabel 'Go Version'
 set style data linespoints

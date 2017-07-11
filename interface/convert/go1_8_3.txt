@@ -1,0 +1,6 @@
+BenchmarkMethodConcrete-4     	2000000000	         0.31 ns/op
+BenchmarkMethodIface-4        	1000000000	         2.94 ns/op
+BenchmarkMethodTypeSwitch-4   	2000000000	         0.88 ns/op
+BenchmarkMethodTypeAssert-4   	2000000000	         0.32 ns/op
+PASS
+ok  	github.com/tylertreat/go-fast/interface/convert	6.321s
