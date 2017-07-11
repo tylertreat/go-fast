@@ -1,4 +1,4 @@
-package serialization
+package iface
 
 import (
 	"flag"

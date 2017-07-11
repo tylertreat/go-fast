@@ -1,0 +1,9 @@
+title=Sorting 100M Structs
+colorset=#7CB070
+=norotate
+max=110
+datascale=0.000000001
+ylabel=seconds
+
+struct 28073180606
+iface  99381425081

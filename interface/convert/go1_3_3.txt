@@ -1,0 +1,6 @@
+PASS
+BenchmarkIncrInt	1000000000	         2.13 ns/op
+BenchmarkIncrIface	1000000000	         2.38 ns/op
+BenchmarkIncrTypeSwitch	100000000	        10.5 ns/op
+BenchmarkIncrTypeAsser	100000000	        12.2 ns/op
+ok  	github.com/tylertreat/go-fast/interface/convert	7.273s
