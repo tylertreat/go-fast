@@ -1,5 +1,17 @@
 package serialization
 
+func MakeStruct() *Struct {
+	return &Struct{
+		Field1: "foo",
+		Field2: 42,
+		Field3: make([]string, 10),
+		Field4: 100,
+		Field5: "bar",
+		Field6: "baz",
+		Field7: make([]byte, 10),
+	}
+}
+
 type Iface interface {
 	Foo()
 }
