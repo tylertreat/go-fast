@@ -1,7 +1,11 @@
 package serialization
 
 import (
+	"flag"
+	"fmt"
 	"math/rand"
+	"os"
+	"runtime/pprof"
 	"sort"
 	"testing"
 
@@ -9,6 +13,12 @@ import (
 
 	"github.com/tylertreat/go-fast/serialization"
 )
+
+var cpuProfile = flag.String("prof", "", "Write CPU profile")
+
+func init() {
+	flag.Parse()
+}
 
 func BenchmarkMethodCall(b *testing.B) {
 	s := serialization.MakeStruct()
@@ -91,6 +101,9 @@ func BenchmarkSortStruct(b *testing.B) {
 		}
 		shuffle(s[i])
 	}
+	if *cpuProfile != "" {
+		defer setupProfiling(b, "struct")()
+	}
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -107,6 +120,9 @@ func BenchmarkSortIface(b *testing.B) {
 		}
 		shuffleIfaces(s[i])
 	}
+	if *cpuProfile != "" {
+		defer setupProfiling(b, "iface")()
+	}
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -120,9 +136,24 @@ func BenchmarkSortParallelSymMerge(b *testing.B) {
 		s[i] = Sortable{i}
 	}
 	shuffleComparators(s)
+	if *cpuProfile != "" {
+		defer setupProfiling(b, "symmerge")()
+	}
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		_ = merge.MultithreadedSortComparators(s)
 	}
+}
+
+func setupProfiling(b *testing.B, prefix string) func() {
+	file := fmt.Sprintf("%s-%s", prefix, *cpuProfile)
+	f, err := os.Create(file)
+	if err != nil {
+		b.Fatal(err)
+	}
+	if err := pprof.StartCPUProfile(f); err != nil {
+		b.Fatal(err)
+	}
+	return pprof.StopCPUProfile
 }
