@@ -1,6 +1,5 @@
 title=Improvement (Ring Buffer vs. Buffered Channel)
-colorset=#7CB070,#FFFC66,#55595e,#5584d1
-=color_per_datum
+colorset=#7CB070
 =norotate
 ylabel=% improvement
 yformat=%g%%
