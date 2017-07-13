@@ -1,0 +1,14 @@
+set term pngcairo
+set output 'append_int.png'
+
+set grid
+set title 'AppendInt'
+set yrange [0:50]
+set ylabel 'ns/op'
+set xlabel 'int converted'
+set xtics rotate
+set key left top
+set style data linespoints
+plot 'append_int.csv' using (column(0)):2:xtic(1) title 'simple' lw 2 pt 2 linecolor rgb '#5584d1', \
+     ''               using (column(0)):3:xtic(1) title 'strtk' lw 2 pt 2 linecolor rgb '#55595e', \
+     ''               using (column(0)):4:xtic(1) title 'strconv.AppendInt' lw 2 pt 7 linecolor rgb '#7CB070'
