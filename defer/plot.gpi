@@ -3,7 +3,7 @@ set output 'defer.png'
 
 set grid
 set title 'Mutex Lock/Unlock Defer and No Defer'
-set yrange [0:125]
+set yrange [0:250]
 set ylabel 'ns/op'
 set xlabel 'Go Version'
 set style data linespoints
