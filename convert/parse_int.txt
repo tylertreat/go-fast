@@ -1,0 +1,16 @@
+BenchmarkParseInt/Value_=_0-4         	500000000	         3.75 ns/op
+BenchmarkParseInt/Value_=_8-4         	500000000	         3.76 ns/op
+BenchmarkParseInt/Value_=_65-4        	300000000	         4.85 ns/op
+BenchmarkParseInt/Value_=_1024-4      	100000000	        10.9 ns/op
+BenchmarkParseInt/Value_=_1000000-4   	100000000	        10.8 ns/op
+BenchmarkParseInt/Value_=_1212121212-4         	100000000	        12.7 ns/op
+BenchmarkParseInt/Value_=_998877665544332211-4 	100000000	        21.0 ns/op
+BenchmarkParseIntStrconv/Value_=_0-4           	50000000	        38.7 ns/op
+BenchmarkParseIntStrconv/Value_=_8-4           	50000000	        40.2 ns/op
+BenchmarkParseIntStrconv/Value_=_65-4          	30000000	        38.4 ns/op
+BenchmarkParseIntStrconv/Value_=_1024-4        	30000000	        44.9 ns/op
+BenchmarkParseIntStrconv/Value_=_1000000-4     	30000000	        48.9 ns/op
+BenchmarkParseIntStrconv/Value_=_1212121212-4  	30000000	        61.2 ns/op
+BenchmarkParseIntStrconv/Value_=_998877665544332211-4         	20000000	        77.2 ns/op
+PASS
+ok  	github.com/tylertreat/go-fast/convert	23.667s
