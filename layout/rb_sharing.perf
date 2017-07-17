@@ -1,7 +1,0 @@
-title=Effect of False Sharing on Ring Buffer
-colorset=#7CB070
-=norotate
-ylabel=ns/op
-
-unpadded 202
-padded   132

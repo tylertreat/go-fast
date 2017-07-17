@@ -1,0 +1,12 @@
+set term pngcairo
+set output 'rb_sharing.png'
+
+set grid
+set title 'Multi-Core Scalability of Ring Buffer'
+set yrange [0:210]
+set ylabel 'ns/op'
+set xlabel 'CPU cores'
+set key left top
+set style data linespoints
+plot 'rb_sharing.csv' using 0:2:xtic(1) title 'padded' lw 2 pt 2 linecolor rgb '#5584d1', \
+     ''              using 0:3:xtic(1) title 'unpadded' lw 2 pt 7 linecolor rgb '#7CB070'
