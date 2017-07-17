@@ -11,65 +11,55 @@ import (
 func BenchmarkRBPaddedLifeCycle(b *testing.B) {
 	rb := queue.NewRingBuffer(1024)
 
-	var wwg sync.WaitGroup
-	var rwg sync.WaitGroup
-	wwg.Add(100)
-	rwg.Add(100)
-
-	for i := 0; i < 100; i++ {
-		go func() {
-			for j := 0; j < b.N/100; j++ {
-				_, err := rb.Get()
-				assert.Nil(b, err)
-			}
-			rwg.Done()
-		}()
-	}
-
+	var wg sync.WaitGroup
+	wg.Add(100)
 	b.ResetTimer()
 
 	for i := 0; i < 100; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
-				rb.Put(i)
+			for j := 0; j < b.N; j++ {
+				_, err := rb.Get()
+				assert.Nil(b, err)
 			}
-			wwg.Done()
+			wg.Done()
 		}()
 	}
 
-	wwg.Wait()
-	rwg.Wait()
+	for i := 0; i < 100; i++ {
+		go func() {
+			for j := 0; j < b.N; j++ {
+				rb.Put(i)
+			}
+		}()
+	}
+
+	wg.Wait()
 }
 
 func BenchmarkRBLifeCycle(b *testing.B) {
 	rb := NewRingBuffer(1024) // Vendored without padding
 
-	var wwg sync.WaitGroup
-	var rwg sync.WaitGroup
-	wwg.Add(100)
-	rwg.Add(100)
-
-	for i := 0; i < 100; i++ {
-		go func() {
-			for j := 0; j < b.N/100; j++ {
-				_, err := rb.Get()
-				assert.Nil(b, err)
-			}
-			rwg.Done()
-		}()
-	}
-
+	var wg sync.WaitGroup
+	wg.Add(100)
 	b.ResetTimer()
 
 	for i := 0; i < 100; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
-				rb.Put(i)
+			for j := 0; j < b.N; j++ {
+				_, err := rb.Get()
+				assert.Nil(b, err)
 			}
-			wwg.Done()
+			wg.Done()
 		}()
 	}
 
-	wwg.Wait()
-	rwg.Wait()
+	for i := 0; i < 100; i++ {
+		go func() {
+			for j := 0; j < b.N; j++ {
+				rb.Put(i)
+			}
+		}()
+	}
+
+	wg.Wait()
 }
