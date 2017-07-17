@@ -1,4 +1,16 @@
-BenchmarkRBPaddedLifeCycle-8   	10000000	       132 ns/op
+BenchmarkRBPaddedLifeCycle-2   	20000000	        84.2 ns/op
+BenchmarkRBPaddedLifeCycle-3   	20000000	       112 ns/op
+BenchmarkRBPaddedLifeCycle-4   	10000000	       121 ns/op
+BenchmarkRBPaddedLifeCycle-5   	10000000	       121 ns/op
+BenchmarkRBPaddedLifeCycle-6   	20000000	       121 ns/op
+BenchmarkRBPaddedLifeCycle-7   	10000000	       125 ns/op
+BenchmarkRBPaddedLifeCycle-8   	10000000	       134 ns/op
+BenchmarkRBLifeCycle-2         	20000000	       113 ns/op
+BenchmarkRBLifeCycle-3         	10000000	       147 ns/op
+BenchmarkRBLifeCycle-4         	10000000	       166 ns/op
+BenchmarkRBLifeCycle-5         	10000000	       175 ns/op
+BenchmarkRBLifeCycle-6         	10000000	       187 ns/op
+BenchmarkRBLifeCycle-7         	10000000	       191 ns/op
 BenchmarkRBLifeCycle-8         	10000000	       202 ns/op
 PASS
-ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/layout	3.715s
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/layout	26.398s
