@@ -1,4 +1,4 @@
-BenchmarkRBPaddedLifeCycle-8   	10000000	       132 ns/op
-BenchmarkRBLifeCycle-8         	10000000	       202 ns/op
+BenchmarkRBPaddedLifeCycle-8   	  100000	     14101 ns/op
+BenchmarkRBLifeCycle-8         	   50000	     23624 ns/op
 PASS
-ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/layout	3.715s
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/layout	3.080s
