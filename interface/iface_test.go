@@ -43,6 +43,7 @@ type Struct struct {
 }
 
 func (s *Struct) Foo() {}
+
 func BenchmarkMethodCall(b *testing.B) {
 	s := makeStruct()
 	b.ResetTimer()
