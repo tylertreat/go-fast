@@ -1,0 +1,6 @@
+BenchmarkCheckMutex-4              	100000000	        16.3 ns/op
+BenchmarkCheckAtomic-4             	2000000000	         0.33 ns/op
+BenchmarkCheckMutexContention-4    	30000000	        77.8 ns/op
+BenchmarkCheckAtomicContention-4   	200000000	        10.8 ns/op
+PASS
+ok  	github.com/tylertreat/go-fast/atomic	7.802s

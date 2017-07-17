@@ -1,0 +1,12 @@
+title=Flag Test
+colorset=#7CB070,#FFFC66
+=table
+=norotate
+ylabel=ns/op
+=cluster;contention;no contention
+
+extraops=set label "0.33" at 1.85,3 right
+
+#                   contention  no contention
+sync.Mutex          77.8        16.3
+sync/atomic         10.8        0.33 
