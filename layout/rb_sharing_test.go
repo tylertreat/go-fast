@@ -73,3 +73,36 @@ func BenchmarkRBLifeCycle(b *testing.B) {
 	wwg.Wait()
 	rwg.Wait()
 }
+
+func BenchmarkChannelLifeCycle(b *testing.B) {
+	c := make(chan interface{}, 64)
+
+	var wwg sync.WaitGroup
+	var rwg sync.WaitGroup
+	wwg.Add(10)
+	rwg.Add(10)
+
+	for i := 0; i < 10; i++ {
+		go func() {
+			for j := 0; j < b.N/10; j++ {
+				_, ok := <-c
+				assert.True(b, ok)
+			}
+			rwg.Done()
+		}()
+	}
+
+	b.ResetTimer()
+
+	for i := 0; i < 10; i++ {
+		go func() {
+			for j := 0; j < b.N/10; j++ {
+				c <- i
+			}
+			wwg.Done()
+		}()
+	}
+
+	wwg.Wait()
+	rwg.Wait()
+}

@@ -3,7 +3,7 @@ set output 'rb_sharing.png'
 
 set grid
 set title 'Multi-Core Scalability of Ring Buffer'
-set yrange [0:210]
+set yrange [0:400]
 set ylabel 'ns/op'
 set xlabel 'CPU cores'
 set key left top
