@@ -13,6 +13,7 @@ BenchmarkRBPaddedLifeCycle-13    	 5000000	       328 ns/op
 BenchmarkRBPaddedLifeCycle-14    	 5000000	       331 ns/op
 BenchmarkRBPaddedLifeCycle-15    	 5000000	       333 ns/op
 BenchmarkRBPaddedLifeCycle-16    	 5000000	       336 ns/op
+
 BenchmarkRBLifeCycle-2           	10000000	       179 ns/op
 BenchmarkRBLifeCycle-3           	10000000	       249 ns/op
 BenchmarkRBLifeCycle-4           	 5000000	       281 ns/op
@@ -28,6 +29,7 @@ BenchmarkRBLifeCycle-13          	 5000000	       363 ns/op
 BenchmarkRBLifeCycle-14          	 5000000	       365 ns/op
 BenchmarkRBLifeCycle-15          	 5000000	       359 ns/op
 BenchmarkRBLifeCycle-16          	 5000000	       356 ns/op
+
 BenchmarkChannelLifeCycle-2      	 5000000	       282 ns/op
 BenchmarkChannelLifeCycle-3      	 5000000	       383 ns/op
 BenchmarkChannelLifeCycle-4      	 3000000	       453 ns/op

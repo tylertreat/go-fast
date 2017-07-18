@@ -1,0 +1,13 @@
+set term pngcairo
+set output 'rb_sharing_channel.png'
+
+set grid
+set title 'Multi-Core Scalability of Ring Buffer and Buffered Channel'
+set yrange [0:900]
+set ylabel 'ns/op'
+set xlabel 'CPU cores'
+set key left top
+set style data linespoints
+plot 'rb_sharing.csv' using 0:2:xtic(1) title 'padded' lw 2 pt 2 linecolor rgb '#5584d1', \
+     ''               using 0:3:xtic(1) title 'unpadded' lw 2 pt 7 linecolor rgb '#55595e', \
+     ''               using 0:4:xtic(1) title 'channel' lw 2 pt 5 linecolor rgb '#7CB070'
