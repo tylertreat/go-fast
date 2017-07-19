@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 args <- if (length(args) == 0) Sys.getenv("ARGS") else args
 args <- if (args[1] == "") "plot.dat" else args
 d <- data.frame(read.table(
-			   text=grep('^mx[123]', readLines(file(args[1])), value=T),
+			   text=grep('^mx[1234]', readLines(file(args[1])), value=T),
 			   col.names=c("mutex", "cores", "readers", "iterations", "wprob", "wwork", "rwork", "refresh", "time", "X"),
 			   colClasses=c(rep(NA, 9), rep("NULL"))
 			   ))
@@ -17,6 +17,7 @@ d$mutex = sapply(d$mutex, function(x) {
                     if (x == "mx1") "sync.RWMutex"
                     else if (x == "mx2") "DRWMutex"
                     else if (x == "mx3") "DRWMutex (padded)"
+                    else if (x == "mx4") "atomic.Value"
 })
 da <- aggregate(d$ops, by = list(
 				 mutex=d$mutex,
