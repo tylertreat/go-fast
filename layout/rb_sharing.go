@@ -86,7 +86,6 @@ func (rb *RingBuffer) Offer(item interface{}) (bool, error) {
 func (rb *RingBuffer) put(item interface{}, offer bool) (bool, error) {
 	var n *node
 	pos := atomic.LoadUint64(&rb.queue)
-	i := 0
 L:
 	for {
 		if atomic.LoadUint64(&rb.disposed) == 1 {
@@ -110,12 +109,7 @@ L:
 			return false, nil
 		}
 
-		if i == 10000 {
-			runtime.Gosched() // free up the cpu before the next iteration
-			i = 0
-		} else {
-			i++
-		}
+		runtime.Gosched() // free up the cpu before the next iteration
 	}
 
 	n.data = item
@@ -130,7 +124,6 @@ L:
 func (rb *RingBuffer) Get() (interface{}, error) {
 	var n *node
 	pos := atomic.LoadUint64(&rb.dequeue)
-	i := 0
 L:
 	for {
 		if atomic.LoadUint64(&rb.disposed) == 1 {
@@ -150,12 +143,7 @@ L:
 			pos = atomic.LoadUint64(&rb.dequeue)
 		}
 
-		if i == 10000 {
-			runtime.Gosched() // free up the cpu before the next iteration
-			i = 0
-		} else {
-			i++
-		}
+		runtime.Gosched() // free up the cpu before the next iteration
 	}
 	data := n.data
 	n.data = nil
