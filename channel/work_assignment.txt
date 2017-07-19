@@ -1,10 +1,10 @@
-BenchmarkBufferedChannel-8                      	10000000	       141 ns/op
-BenchmarkRingBuffer-8                           	20000000	        95.6 ns/op
-BenchmarkBufferedChannelReadContention-8        	 2000000	       627 ns/op
-BenchmarkRingBufferReadContention-8             	10000000	       172 ns/op
-BenchmarkBufferedChannelWriteContention-8       	 3000000	       543 ns/op
-BenchmarkRingBufferWriteContention-8            	10000000	       133 ns/op
-BenchmarkBufferedChannelReadWriteContention-8   	  100000	     22231 ns/op
-BenchmarkRingBufferReadWriteContention-8        	  100000	     16127 ns/op
+BenchmarkBufferedChannel-16                       	10000000	       141 ns/op
+BenchmarkRingBuffer-16                            	20000000	       118 ns/op
+BenchmarkBufferedChannelReadContention-16         	 5000000	       404 ns/op
+BenchmarkRingBufferReadContention-16              	10000000	       133 ns/op
+BenchmarkBufferedChannelWriteContention-16        	 5000000	       376 ns/op
+BenchmarkRingBufferWriteContention-16             	 5000000	       367 ns/op
+BenchmarkBufferedChannelReadWriteContention-16    	   20000	     70267 ns/op
+BenchmarkRingBufferReadWriteContention-16         	   30000	     52200 ns/op
 PASS
-ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/channel	15.242s
+ok  	github.com/tylertreat/go-fast/channel	16.621s
