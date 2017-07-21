@@ -3,7 +3,6 @@ colorset=#7CB070,#FFFC66,#55595e,#5584d1
 =table
 =norotate
 ylabel=ns/op
-max=1000
 =cluster;no contention;read contention;write contention;full contention
 
 #               no contention  read contention  write contention  full contention
