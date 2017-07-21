@@ -1,0 +1,12 @@
+set term pngcairo
+set output 'trie.png'
+
+set grid
+set title 'Multi-Core Scalability of Subscription Tries (1:1 Inserts:Lookups)'
+set yrange [0:35]
+set ylabel 'ms'
+set xlabel 'CPU cores'
+set key left top
+set style data linespoints
+plot 'trie.csv' using 0:($2/1000000):xtic(1) title 'trie' lw 2 pt 2 linecolor rgb '#5584d1', \
+     ''         using 0:($3/1000000):xtic(1) title 'cs-trie' lw 2 pt 7 linecolor rgb '#55595e'

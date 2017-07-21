@@ -14,6 +14,7 @@ BenchmarkMultithreaded16Thread5050Trie-13             50          23735576 ns/op
 BenchmarkMultithreaded16Thread5050Trie-14             50          23818317 ns/op
 BenchmarkMultithreaded16Thread5050Trie-15             50          23433886 ns/op
 BenchmarkMultithreaded16Thread5050Trie-16            100          23512134 ns/op
+
 BenchmarkMultithreaded16Thread5050CSTrie             100          17295749 ns/op
 BenchmarkMultithreaded16Thread5050CSTrie-2           200           9719135 ns/op
 BenchmarkMultithreaded16Thread5050CSTrie-3           200           6925492 ns/op
