@@ -163,12 +163,12 @@ func BenchmarkRingBuffer(b *testing.B) {
 func BenchmarkBufferedChannelReadContention(b *testing.B) {
 	ch := make(chan interface{}, 1024)
 	var wg sync.WaitGroup
-	wg.Add(100)
+	wg.Add(8)
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
+			for j := 0; j < b.N/8; j++ {
 				<-ch
 			}
 			wg.Done()
@@ -185,12 +185,12 @@ func BenchmarkBufferedChannelReadContention(b *testing.B) {
 func BenchmarkRingBufferReadContention(b *testing.B) {
 	q := queue.NewRingBuffer(1024)
 	var wg sync.WaitGroup
-	wg.Add(100)
+	wg.Add(8)
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
+			for j := 0; j < b.N/8; j++ {
 				q.Get()
 			}
 			wg.Done()
@@ -207,15 +207,15 @@ func BenchmarkRingBufferReadContention(b *testing.B) {
 func BenchmarkBufferedChannelWriteContention(b *testing.B) {
 	ch := make(chan interface{}, 1024)
 	var wg sync.WaitGroup
-	wg.Add(100)
-	if b.N < 100 {
-		b.N = 100
+	wg.Add(8)
+	if b.N < 8 {
+		b.N = 8
 	}
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
+			for j := 0; j < b.N/8; j++ {
 				ch <- `a`
 			}
 			wg.Done()
@@ -230,17 +230,17 @@ func BenchmarkBufferedChannelWriteContention(b *testing.B) {
 }
 
 func BenchmarkRingBufferWriteContention(b *testing.B) {
-	q := queue.NewRingBuffer(100)
+	q := queue.NewRingBuffer(1024)
 	var wg sync.WaitGroup
-	wg.Add(100)
-	if b.N < 100 {
-		b.N = 100
+	wg.Add(8)
+	if b.N < 8 {
+		b.N = 8
 	}
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N/100; j++ {
+			for j := 0; j < b.N/8; j++ {
 				q.Put(`a`)
 			}
 			wg.Done()
@@ -258,22 +258,22 @@ func BenchmarkBufferedChannelReadWriteContention(b *testing.B) {
 	ch := make(chan interface{}, 1024)
 	var rwg sync.WaitGroup
 	var wwg sync.WaitGroup
-	rwg.Add(100)
-	wwg.Add(100)
+	rwg.Add(8)
+	wwg.Add(8)
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N; j++ {
+			for j := 0; j < b.N/8; j++ {
 				ch <- `a`
 			}
 			wwg.Done()
 		}()
 	}
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N; j++ {
+			for j := 0; j < b.N/8; j++ {
 				<-ch
 			}
 			rwg.Done()
@@ -285,25 +285,25 @@ func BenchmarkBufferedChannelReadWriteContention(b *testing.B) {
 }
 
 func BenchmarkRingBufferReadWriteContention(b *testing.B) {
-	q := queue.NewRingBuffer(100)
+	q := queue.NewRingBuffer(1024)
 	var wwg sync.WaitGroup
 	var rwg sync.WaitGroup
-	wwg.Add(100)
-	rwg.Add(100)
+	wwg.Add(8)
+	rwg.Add(8)
 	b.ResetTimer()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for i := 0; i < b.N; i++ {
+			for i := 0; i < b.N/8; i++ {
 				q.Put(`a`)
 			}
 			wwg.Done()
 		}()
 	}
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 8; i++ {
 		go func() {
-			for j := 0; j < b.N; j++ {
+			for j := 0; j < b.N/8; j++ {
 				q.Get()
 			}
 			rwg.Done()
