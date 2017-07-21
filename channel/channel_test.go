@@ -208,8 +208,8 @@ func BenchmarkBufferedChannelWriteContention(b *testing.B) {
 	ch := make(chan interface{}, 1024)
 	var wg sync.WaitGroup
 	wg.Add(8)
-	if b.N < 8 {
-		b.N = 8
+	if b.N%8 != 0 {
+		b.N = b.N - (b.N % 8)
 	}
 	b.ResetTimer()
 
@@ -233,8 +233,8 @@ func BenchmarkRingBufferWriteContention(b *testing.B) {
 	q := queue.NewRingBuffer(1024)
 	var wg sync.WaitGroup
 	wg.Add(8)
-	if b.N < 8 {
-		b.N = 8
+	if b.N%8 != 0 {
+		b.N = b.N - (b.N % 8)
 	}
 	b.ResetTimer()
 
