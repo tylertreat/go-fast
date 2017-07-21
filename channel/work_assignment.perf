@@ -6,10 +6,6 @@ ylabel=ns/op
 max=1000
 =cluster;no contention;read contention;write contention;full contention
 
-# Add a text label for a value that goes beyond the max value.
-extraops=set label "22231" at 0.95,950 right
-extraops=set label "16127" at 1.901,950 right
-
 #               no contention  read contention  write contention  full contention
-channel                   141              627               543            22231
-ring-buffer              95.6              172               133            16127
+channel                   139              411               212            220
+ring-buffer              84.0              111               117            108
