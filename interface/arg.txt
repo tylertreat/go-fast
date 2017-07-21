@@ -1,0 +1,4 @@
+BenchmarkArgIface-4    	50000000	         40.4 ns/op
+BenchmarkArgString-4   	1000000000	         2.25 ns/op
+PASS
+ok  	github.com/tylertreat/go-fast/interface	4.530s
