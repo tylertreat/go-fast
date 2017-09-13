@@ -1,0 +1,8 @@
+goos: darwin
+goarch: amd64
+BenchmarkMethodConcrete-8     	2000000000	         0.29 ns/op
+BenchmarkMethodIface-8        	1000000000	         2.05 ns/op
+BenchmarkMethodTypeSwitch-8   	2000000000	         1.16 ns/op
+BenchmarkMethodTypeAssert-8   	2000000000	         0.29 ns/op
+PASS
+ok  	_/Users/Tyler/Go/src/github.com/tylertreat/go-fast/interface/convert	5.937s
